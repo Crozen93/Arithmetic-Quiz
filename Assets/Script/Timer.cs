@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private float roundTime;
+    public static Timer instance { get; private set; }
 
-    public void TimerHundler()
+    public float roundTime;
+    public float roundTimeOut;
+    private int roundConvertTime;
+
+    private void Awake()
     {
+        instance = this;
+    }
 
+    // Timer - round
+    public void TimerRoundStart()
+    {        
+        roundTime -= Time.deltaTime;
+        roundConvertTime = (int)roundTime;
+        UiController.instance.timerTex.text = roundConvertTime.ToString();
+    }
+
+    // Timer - timeout
+    public void TimerOutRoundStart()
+    {
+        roundTimeOut -= Time.deltaTime;
     }
 }
